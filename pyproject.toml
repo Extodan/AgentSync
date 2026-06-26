@@ -1,0 +1,82 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agentsync"
+version = "0.1.0"
+description = "Drop-in LangGraph store that merges concurrent writes instead of silently dropping them."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "extodan" }]
+keywords = [
+    "langgraph",
+    "multi-agent",
+    "crdt",
+    "agent-memory",
+    "concurrency",
+    "agents",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Software Development :: Libraries",
+    "Typing :: Typed",
+]
+dependencies = [
+    # langgraph store layer: SyncedStore subclasses InMemoryStore and overrides
+    # batch(). Pinned with a floor at 1.2 (the verified API surface) and a major
+    # ceiling — a 2.x release would need re-verification against the store API.
+    "langgraph>=1.2,<2",
+    # CRDT layer (eg-walker family). Deterministic, coordinator-free merge.
+    "loro>=1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/Extodan-Corp/AgentSync"
+Repository = "https://github.com/Extodan-Corp/AgentSync"
+Issues = "https://github.com/Extodan-Corp/AgentSync/issues"
+
+[project.optional-dependencies]
+# Core is dependency-light; these extras cover the optional surfaces.
+bench = [
+    "psutil>=6.0",        # peak-memory measurement in the benchmark harness
+]
+test = [
+    "pytest>=8.0",
+]
+demo = [
+    # The /examples LangGraph swap demo needs nothing beyond core, but we keep
+    # the extra as the installable affordance for the example script.
+    "langgraph>=1.2,<2",
+]
+
+[project.scripts]
+# CLI entry point. Currently runs the three-way benchmark harness; a future
+# `agentsync bench --my-workload` lives here when that lands.
+agentsync = "agentsync.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agentsync"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/agentsync",
+    "examples",
+    "assets",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+]
+
+[tool.uv]
+# `make setup` uses uv; this keeps editable installs source-true.
+package = true
