@@ -1,6 +1,6 @@
 # agentsync
 
-[![PyPI version](https://img.shields.io/pypi/v/agentsync.svg)](https://pypi.org/project/agentsync/)
+[![PyPI version](https://img.shields.io/pypi/v/extodan-agentsync.svg)](https://pypi.org/project/extodan-agentsync/)
 [![CI](https://github.com/Extodan-Corp/AgentSync/actions/workflows/ci.yml/badge.svg)](https://github.com/Extodan-Corp/AgentSync/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
@@ -30,7 +30,7 @@ def my_node(state, store):                            # 4  langgraph injects the
 ## Install
 
 ```bash
-pip install agentsync            # when published; meanwhile:
+pip install extodan-agentsync            # when published; meanwhile:
 pip install -e ".[demo]"         # from a clone (or `make setup` with uv)
 ```
 

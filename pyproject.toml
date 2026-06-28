@@ -3,7 +3,7 @@ requires = ["hatchling>=1.21"]
 build-backend = "hatchling.build"
 
 [project]
-name = "agentsync"
+name = "extodan-agentsync"
 version = "0.1.0"
 description = "Drop-in LangGraph store that merges concurrent writes instead of silently dropping them."
 readme = "README.md"
